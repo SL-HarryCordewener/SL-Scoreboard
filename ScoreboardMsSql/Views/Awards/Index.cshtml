@@ -1,0 +1,53 @@
+﻿@model IEnumerable<ScoreboardMsSql.Models.Scoreboard.ScoreboardAwards>
+
+@{
+    ViewBag.Title = "Award Admin Index";
+}
+
+<h2>@ViewBag.Title</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table>
+    <tr>
+        <th>
+            Award Time
+        </th>
+        <th>
+            User
+        </th>
+        <th>
+            Bug Description
+        </th>
+        <th>
+            Awarded Points
+        </th>
+        <th>
+            Options
+        </th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.AwardTime)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.AwardUser.Name)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem=> item.AwardBug.Description)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem=> item.AwardBug.Points)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.Id }) |
+            @Html.ActionLink("Details", "Details", new { id=item.Id }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.Id })
+        </td>
+    </tr>
+}
+
+</table>

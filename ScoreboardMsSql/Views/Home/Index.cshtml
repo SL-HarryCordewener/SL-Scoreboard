@@ -1,0 +1,30 @@
+﻿@{
+    ViewBag.Title = DateTime.Now.Year + " Great Bug Open";
+}
+@model Tuple<System.Data.DataTable,int>
+           
+<div id="results">
+    <table>
+        <thead>
+            <tr>
+                @foreach (System.Data.DataColumn col in Model.Item1.Columns) { 
+                    <th>@col.Caption</th>
+                }
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (System.Data.DataRow row in Model.Item1.Rows)
+            {
+                <tr>
+                    @foreach (var cell in row.ItemArray) {
+                        <td>@cell.ToString()</td>
+                    }
+                </tr>
+            }         
+        </tbody>
+    </table>
+    <div id="totals">
+        <h2>Total Bugs Caught: @Model.Item2</h2>
+        <p>Thank you to everyone who participated. Keep squashing those bugs!</p>
+    </div><!--End totals div -->
+</div>

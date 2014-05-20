@@ -1,0 +1,52 @@
+﻿@model ScoreboardMsSql.Models.Scoreboard.ScoreboardAwards
+
+@{
+    ViewBag.Title = "Edit";
+}
+
+<h2>Edit</h2>
+
+<script src="@Url.Content("~/Scripts/jquery.validate.min.js")" type="text/javascript"></script>
+<script src="@Url.Content("~/Scripts/jquery.validate.unobtrusive.min.js")" type="text/javascript"></script>
+
+@using (Html.BeginForm()) {
+    @Html.ValidationSummary(true)
+    <p>@ViewBag.Error</p>
+    <fieldset>
+        <legend>ScoreboardAwards</legend>
+
+        @Html.HiddenFor(model => model.Id)
+        
+        <div class="editor-label">
+            @Html.LabelFor(model => model.AwardTime)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.AwardTime)
+            @Html.ValidationMessageFor(model => model.AwardTime)
+        </div>
+        
+        <div class="editor-label">
+            @Html.LabelFor(model => model.AwardUser)
+        </div>
+        <div class="editor-field">
+            @Html.DropDownListFor(model => model.AwardUser.Id, (SelectList)ViewData["AwardUser"])
+            @Html.ValidationMessageFor(model => model.AwardUser)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.AwardBug)
+        </div>
+        <div class="editor-field">
+            @Html.DropDownListFor(model => model.AwardBug.Id, (SelectList)ViewData["AwardBug"])
+            @Html.ValidationMessageFor(model => model.AwardBug)
+        </div>
+
+        <p>
+            <input type="submit" value="Save" />
+        </p>
+    </fieldset>
+}
+
+<div>
+    @Html.ActionLink("Back to List", "Index")
+</div>

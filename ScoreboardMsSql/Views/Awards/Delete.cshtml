@@ -1,0 +1,39 @@
+﻿@model ScoreboardMsSql.Models.Scoreboard.ScoreboardAwards
+
+@{
+    ViewBag.Title = "Delete";
+}
+
+<h2>Delete</h2>
+
+<h3>Are you sure you want to delete this?</h3>
+<fieldset>
+    <legend>ScoreboardAwards</legend>
+    
+    <div class="display-label">Time of Award</div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.AwardTime)
+    </div>
+    
+    <div class="display-label">User</div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.AwardUser.Name)
+    </div>
+    
+    <div class="display-label">Bug Description</div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.AwardBug.Description)
+    </div>
+    
+    <div class="display-label">Awarded Points</div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.AwardBug.Points)
+    </div>
+
+</fieldset>
+@using (Html.BeginForm()) {
+    <p>
+        <input type="submit" value="Delete" /> |
+        @Html.ActionLink("Back to List", "Index")
+    </p>
+}
