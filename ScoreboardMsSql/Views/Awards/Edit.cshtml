@@ -21,7 +21,7 @@
             @Html.LabelFor(model => model.AwardTime)
         </div>
         <div class="editor-field">
-            @Html.EditorFor(model => model.AwardTime)
+            @Html.TextBoxFor(model => model.AwardTime, new { id = "date" })
             @Html.ValidationMessageFor(model => model.AwardTime)
         </div>
         
