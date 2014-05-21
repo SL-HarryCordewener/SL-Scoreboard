@@ -1,25 +1,34 @@
-﻿@{
+﻿@using System
+@using ScoreboardMsSql.Controllers
+@model Tuple<System.Collections.Generic.IEnumerable<HomeController.ResultItems>, int>
+
+@{
     ViewBag.Title = DateTime.Now.Year + " Great Point Open";
 }
-@using System
-@model Tuple<System.Data.DataTable,int>
-           
+
+
 <div id="results">
     <table>
         <thead>
             <tr>
-                @foreach (System.Data.DataColumn col in Model.Item1.Columns) { 
-                    <th>@col.Caption</th>
-                }
+                <th>POS.</th>
+                <th>Name</th>
+                <th>LOW</th>
+                <th>MID</th>
+                <th>HIGH</th>
+                <th>TOTAL</th>
             </tr>
         </thead>
         <tbody>
-            @foreach (System.Data.DataRow row in Model.Item1.Rows)
+            @foreach (HomeController.ResultItems row in Model.Item1)
             {
                 <tr>
-                    @foreach (var cell in row.ItemArray) {
-                        <td>@cell.ToString()</td>
-                    }
+                    <td>@row.pos</td>
+                    <td>@row.name</td>
+                    <td>@row.low</td>
+                    <td>@row.mid</td>
+                    <td>@row.high</td>
+                    <td>@row.total</td>
                 </tr>
             }         
         </tbody>
@@ -28,5 +37,4 @@
         <h2>Total Points Caught: @Model.Item2</h2>
         <p>Thank you to everyone who participated. Keep squashing those bugs!</p>
     </div><!--End totals div -->
-
 </div>
