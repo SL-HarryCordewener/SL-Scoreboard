@@ -1,4 +1,4 @@
-﻿@model ScoreboardMsSql.Models.Scoreboard.ScoreboardBugs
+﻿@model ScoreboardMsSql.Models.Scoreboard.ScoreboardPoints
 
 @{
     ViewBag.Title = "Details";
@@ -7,7 +7,7 @@
 <h2>Details</h2>
 
 <fieldset>
-    <legend>ScoreboardBugs</legend>
+    <legend>Scoreboard Points</legend>
 
     <div class="display-label">Description</div>
     <div class="display-field">
@@ -18,13 +18,8 @@
     <div class="display-field">
         @Html.DisplayFor(model => model.Points)
     </div>
-
-    <div class="display-label">Defect</div>
-    <div class="display-field">
-        @Html.DisplayFor(model => model.Defect)
-    </div>
 </fieldset>
 <p>
-    @Html.ActionLink("Edit", "Edit", new { id=Model.Id }) |
+    @Html.ActionLink("Edit", "Edit", new {id = Model.Id}) |
     @Html.ActionLink("Back to List", "Index")
 </p>

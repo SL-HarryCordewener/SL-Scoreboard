@@ -1,77 +1,73 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Data;
-using System.Data.Entity;
+﻿using System.Data.Entity;
 using System.Linq;
-using System.Web;
 using System.Web.Mvc;
 using ScoreboardMsSql.Models.Scoreboard;
 
 namespace ScoreboardMsSql.Controllers
-{ 
-    public class BugsController : Controller
+{
+    public class PointsController : Controller
     {
-        private ScoreboardContext db = new ScoreboardContext();
+        private readonly ScoreboardContext db = new ScoreboardContext();
 
         //
-        // GET: /Bugs/
+        // GET: /Points/
 
         public ViewResult Index()
         {
-            var scoreboardbugs = db.ScoreBoardBugs.Include(s => s.Awards);
+            IQueryable<ScoreboardPoints> scoreboardbugs = db.ScoreBoardPoints.Include(s => s.Awards);
             return View(scoreboardbugs.ToList());
         }
 
         //
-        // GET: /Bugs/Details/5
+        // GET: /Points/Details/5
 
         public ViewResult Details(int id)
         {
-            ScoreboardBugs scoreboardbugs = db.ScoreBoardBugs.Find(id);
+            ScoreboardPoints scoreboardbugs = db.ScoreBoardPoints.Find(id);
             return View(scoreboardbugs);
         }
 
         //
-        // GET: /Bugs/Create
+        // GET: /Points/Create
 
         public ActionResult Create()
         {
             ViewBag.Id = new SelectList(db.ScoreBoardAwardsBAwards, "Id", "Id");
             return View();
-        } 
+        }
 
         //
-        // POST: /Bugs/Create
+        // POST: /Points/Create
 
         [HttpPost]
-        public ActionResult Create(ScoreboardBugs scoreboardbugs)
+        public ActionResult Create(ScoreboardPoints scoreboardbugs)
         {
             if (ModelState.IsValid)
             {
-                db.ScoreBoardBugs.Add(scoreboardbugs);
+                db.ScoreBoardPoints.Add(scoreboardbugs);
                 db.SaveChanges();
-                return RedirectToAction("Index");  
+                return RedirectToAction("Index");
             }
 
             ViewBag.Id = new SelectList(db.ScoreBoardAwardsBAwards, "Id", "Id", scoreboardbugs.Id);
             return View(scoreboardbugs);
         }
-        
+
         //
-        // GET: /Bugs/Edit/5
- 
+        // GET: /Points/Edit/5
+
         public ActionResult Edit(int id)
         {
-            ScoreboardBugs scoreboardbugs = db.ScoreBoardBugs.Find(id);
+            ScoreboardPoints scoreboardbugs = db.ScoreBoardPoints.Find(id);
             ViewBag.Id = new SelectList(db.ScoreBoardAwardsBAwards, "Id", "Id", scoreboardbugs.Id);
             return View(scoreboardbugs);
         }
 
         //
-        // POST: /Bugs/Edit/5
+        // POST: /Points/Edit/5
 
         [HttpPost]
-        public ActionResult Edit(ScoreboardBugs scoreboardbugs)
+        public ActionResult Edit(ScoreboardPoints scoreboardbugs)
         {
             if (ModelState.IsValid)
             {
@@ -84,22 +80,22 @@ namespace ScoreboardMsSql.Controllers
         }
 
         //
-        // GET: /Bugs/Delete/5
- 
+        // GET: /Points/Delete/5
+
         public ActionResult Delete(int id)
         {
-            ScoreboardBugs scoreboardbugs = db.ScoreBoardBugs.Find(id);
+            ScoreboardPoints scoreboardbugs = db.ScoreBoardPoints.Find(id);
             return View(scoreboardbugs);
         }
 
         //
-        // POST: /Bugs/Delete/5
+        // POST: /Points/Delete/5
 
         [HttpPost, ActionName("Delete")]
         public ActionResult DeleteConfirmed(int id)
-        {            
-            ScoreboardBugs scoreboardbugs = db.ScoreBoardBugs.Find(id);
-            db.ScoreBoardBugs.Remove(scoreboardbugs);
+        {
+            ScoreboardPoints scoreboardbugs = db.ScoreBoardPoints.Find(id);
+            db.ScoreBoardPoints.Remove(scoreboardbugs);
             db.SaveChanges();
             return RedirectToAction("Index");
         }

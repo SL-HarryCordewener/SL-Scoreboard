@@ -1,4 +1,5 @@
 ﻿@charset "utf-8";
+
 /*----------------------------------------------------------
 The base color for this template is #5c87b2. If you'd like
 to use a different color start by replacing all instances of
@@ -250,3 +251,13 @@ tr:hover {
 }
 
 .bugimage { width: 40px; }
+
+.admin th:nth-last-child(1) { min-width: 10em; }
+
+.display-label, .editor-label { font-weight: bold; }
+
+fieldset { overflow: hidden; }
+
+/* This ensures that large descriptions don't cause the options to look enormous before we click them. */
+
+select { max-width: 700px; }

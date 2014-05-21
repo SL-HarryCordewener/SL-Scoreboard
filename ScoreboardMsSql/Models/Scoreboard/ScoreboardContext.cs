@@ -10,7 +10,7 @@ namespace ScoreboardMsSql.Models.Scoreboard
 
         public DbSet<ScoreboardUsers> ScoreBoardUsers { get; set; }
 
-        public DbSet<ScoreboardBugs> ScoreBoardBugs { get; set; }
+        public DbSet<ScoreboardPoints> ScoreBoardPoints { get; set; }
 
         public DbSet<ScoreboardAwards> ScoreBoardAwardsBAwards { get; set; }
     }

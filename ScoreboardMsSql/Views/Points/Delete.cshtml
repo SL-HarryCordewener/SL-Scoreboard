@@ -1,4 +1,4 @@
-﻿@model ScoreboardMsSql.Models.Scoreboard.ScoreboardBugs
+﻿@model ScoreboardMsSql.Models.Scoreboard.ScoreboardPoints
 
 @{
     ViewBag.Title = "Delete";
@@ -19,13 +19,9 @@
     <div class="display-field">
         @Html.DisplayFor(model => model.Points)
     </div>
-
-    <div class="display-label">Defect</div>
-    <div class="display-field">
-        @Html.DisplayFor(model => model.Defect)
-    </div>
 </fieldset>
-@using (Html.BeginForm()) {
+@using (Html.BeginForm())
+{
     <p>
         <input type="submit" value="Delete" /> |
         @Html.ActionLink("Back to List", "Index")

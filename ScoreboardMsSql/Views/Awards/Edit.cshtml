@@ -34,11 +34,11 @@
         </div>
 
         <div class="editor-label">
-            @Html.LabelFor(model => model.AwardBug)
+            @Html.LabelFor(model => model.AwardPoint)
         </div>
         <div class="editor-field">
-            @Html.DropDownListFor(model => model.AwardBug.Id, (SelectList)ViewData["AwardBug"])
-            @Html.ValidationMessageFor(model => model.AwardBug)
+            @Html.DropDownListFor(model => model.AwardPoint.Id, (SelectList)ViewData["AwardPoint"])
+            @Html.ValidationMessageFor(model => model.AwardPoint)
         </div>
 
         <p>

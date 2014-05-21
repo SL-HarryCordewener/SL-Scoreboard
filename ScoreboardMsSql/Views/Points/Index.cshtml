@@ -1,8 +1,8 @@
 ﻿@using ScoreboardMsSql.Models.Scoreboard
-@model System.Collections.Generic.IEnumerable<ScoreboardMsSql.Models.Scoreboard.ScoreboardUsers>
+@model System.Collections.Generic.IEnumerable<ScoreboardMsSql.Models.Scoreboard.ScoreboardPoints>
 
 @{
-    ViewBag.Title = "User Admin Index";
+    ViewBag.Title = "Point Admin Index";
 }
 
 <h2>@ViewBag.Title</h2>
@@ -13,15 +13,27 @@
 <table class="admin">
     <tr>
         <th>
-            Name
+            Description 
         </th>
+        <th>
+            Points
+        </th>
+        <!--
+            <th>
+                Defect
+            </th>
+            -->
         <th></th>
     </tr>
-    @foreach (ScoreboardUsers item in Model)
+
+    @foreach (ScoreboardPoints item in Model)
     {
         <tr>
             <td>
-                @Html.DisplayFor(modelItem => item.Name)
+                @Html.DisplayFor(modelItem => item.Description)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Points)
             </td>
             <td>
                 @Html.ActionLink("Edit", "Edit", new {id = item.Id}) |

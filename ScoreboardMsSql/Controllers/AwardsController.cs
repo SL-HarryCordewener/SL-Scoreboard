@@ -15,7 +15,7 @@ namespace ScoreboardMsSql.Controllers
 
         public ViewResult Index()
         {
-            var scoreboardawardsbawards = db.ScoreBoardAwardsBAwards.Include(s => s.AwardBug).Include(u => u.AwardUser);
+            var scoreboardawardsbawards = db.ScoreBoardAwardsBAwards.Include(s => s.AwardPoint).Include(u => u.AwardUser);
             return View(scoreboardawardsbawards.ToList());
         }
 
@@ -40,7 +40,7 @@ namespace ScoreboardMsSql.Controllers
         public ActionResult Create()
         {
             PopulateUserList();
-            ViewData["AwardBug"] = new SelectList(db.ScoreBoardBugs, "Id", "Description");
+            ViewData["AwardPoint"] = new SelectList(db.ScoreBoardPoints, "Id", "Description");
 
             return View();
         } 
@@ -63,10 +63,10 @@ namespace ScoreboardMsSql.Controllers
             try
             {
                 var realUser = (from user in db.ScoreBoardUsers where user.Id == scoreboardawards.AwardUser.Id select user).Single();
-                var realBug = (from bug in db.ScoreBoardBugs where bug.Id == scoreboardawards.AwardBug.Id select bug).Single();
+                var realPoint = (from point in db.ScoreBoardPoints where point.Id == scoreboardawards.AwardPoint.Id select point).Single();
 
                 scoreboardawards.AwardUser = realUser;
-                scoreboardawards.AwardBug = realBug;
+                scoreboardawards.AwardPoint = realPoint;
 
                 db.ScoreBoardAwardsBAwards.Add(scoreboardawards);
                 db.SaveChanges();
@@ -79,10 +79,10 @@ namespace ScoreboardMsSql.Controllers
 
 
             ViewData["AwardUser"] = new SelectList(db.ScoreBoardUsers, "Id", "Name", scoreboardawards.AwardUser);
-            ViewData["AwardBug"] = new SelectList(db.ScoreBoardBugs, "Id", "Description", scoreboardawards.AwardBug);
+            ViewData["AwardPoint"] = new SelectList(db.ScoreBoardPoints, "Id", "Description", scoreboardawards.AwardPoint);
             ViewBag.Error = "Something went wrong.";
 
-            // ViewBag.Id = new SelectList(db.ScoreBoardBugs, "Id", "Description");
+            // ViewBag.Id = new SelectList(db.ScoreBoardPoints, "Id", "Description");
             // ViewBag.Id = new SelectList(db.ScoreBoardAwardsBAwards, "Name", "Id", scoreboardawards.Id);
 
             return View(scoreboardawards);
@@ -95,7 +95,7 @@ namespace ScoreboardMsSql.Controllers
         {
             ScoreboardAwards scoreboardawards = db.ScoreBoardAwardsBAwards.Find(id);
             ViewData["AwardUser"] = new SelectList(db.ScoreBoardUsers, "Id", "Name", scoreboardawards.AwardUser);
-            ViewData["AwardBug"] = new SelectList(db.ScoreBoardBugs, "Id", "Description", scoreboardawards.AwardBug);
+            ViewData["AwardPoint"] = new SelectList(db.ScoreBoardPoints, "Id", "Description", scoreboardawards.AwardPoint);
             return View(scoreboardawards);
         }
 
@@ -115,10 +115,10 @@ namespace ScoreboardMsSql.Controllers
             try
             {
                 var realUser = (from user in db.ScoreBoardUsers where user.Id == scoreboardawards.AwardUser.Id select user).Single();
-                var realBug = (from bug in db.ScoreBoardBugs where bug.Id == scoreboardawards.AwardBug.Id select bug).Single();
+                var realPoint = (from point in db.ScoreBoardPoints where point.Id == scoreboardawards.AwardPoint.Id select point).Single();
 
                 scoreboardawards.AwardUser = realUser;
-                scoreboardawards.AwardBug = realBug;
+                scoreboardawards.AwardPoint = realPoint;
 
                 db.Entry(scoreboardawards).State = EntityState.Modified;
                 db.SaveChanges();
@@ -130,7 +130,7 @@ namespace ScoreboardMsSql.Controllers
             }
 
             ViewData["AwardUser"] = new SelectList(db.ScoreBoardUsers, "Id", "Name", scoreboardawards.AwardUser);
-            ViewData["AwardBug"] = new SelectList(db.ScoreBoardBugs, "Id", "Description", scoreboardawards.AwardBug);
+            ViewData["AwardPoint"] = new SelectList(db.ScoreBoardPoints, "Id", "Description", scoreboardawards.AwardPoint);
             return View(scoreboardawards);
         }
 

@@ -1,4 +1,5 @@
-﻿@model IEnumerable<ScoreboardMsSql.Models.Scoreboard.ScoreboardAwards>
+﻿@using ScoreboardMsSql.Models.Scoreboard
+@model System.Collections.Generic.IEnumerable<ScoreboardAwards>
 
 @{
     ViewBag.Title = "Award Admin Index";
@@ -9,7 +10,7 @@
 <p>
     @Html.ActionLink("Create New", "Create")
 </p>
-<table>
+<table class="admin">
     <tr>
         <th>
             Award Time
@@ -18,7 +19,7 @@
             User
         </th>
         <th>
-            Bug Description
+            Point Description
         </th>
         <th>
             Awarded Points
@@ -28,7 +29,7 @@
         </th>
     </tr>
 
-@foreach (var item in Model) {
+@foreach (ScoreboardAwards item in Model) {
     <tr>
         <td>
             @Html.DisplayFor(modelItem => item.AwardTime)
@@ -37,10 +38,10 @@
             @Html.DisplayFor(modelItem => item.AwardUser.Name)
         </td>
         <td>
-            @Html.DisplayFor(modelItem=> item.AwardBug.Description)
+            @Html.DisplayFor(modelItem=> item.AwardPoint.Description)
         </td>
         <td>
-            @Html.DisplayFor(modelItem=> item.AwardBug.Points)
+            @Html.DisplayFor(modelItem=> item.AwardPoint.Points)
         </td>
         <td>
             @Html.ActionLink("Edit", "Edit", new { id=item.Id }) |
