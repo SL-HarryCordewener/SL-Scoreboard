@@ -1,44 +1,54 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Data;
-using System.Data.Entity;
 using System.Linq;
 using System.Web.Mvc;
 using ScoreboardMsSql.Models.Scoreboard;
 
 namespace ScoreboardMsSql.Controllers
 {
+    /// <summary>
+    /// Standard controller that controls Views/Home/*
+    /// </summary>
     public class HomeController : Controller
     {
-        private readonly ScoreboardContext db = new ScoreboardContext();
+        private const int LowMax = 5;  // Range for Low level points: 0-LowMax
+        private const int MidMax = 10; // Range for Mid Level Points: LowMax-MidMax
+        private readonly ScoreboardContext _db = new ScoreboardContext(); // The Model that contains our information.
 
+        // We need this to make it easier to list the index. 
+        // LINQ Anonymous class lists do not play nice.
         public class ResultItems
         {
-            public string name;
+            public string Name;
 
-            public int pos;
-            public int low;
-            public int mid;
-            public int high;
-            public int total;
+            public int Pos;
+            public int Low;
+            public int Mid;
+            public int High;
+            public int Total;
         }
 
+        /// <summary>
+        /// Views/Home/Index 
+        /// Views/Home/
+        /// </summary>
+        /// <returns>The page</returns>
         public ActionResult Index()
         {
             // var scoreboardawardsbawards = db.ScoreBoardAwardsBAwards.Include(award => award.AwardPoint).Include(award => award.AwardUser);
-            var scoreboardawardsbawards = from awards in db.ScoreBoardAwardsBAwards
+            var scoreboardawardsbawards = from awards in _db.ScoreBoardAwardsBAwards
                 where (awards.AwardTime.Year == DateTime.Now.Year)
                 group awards by new {awards.AwardUser.Id, awards.AwardUser.Name, awards.AwardPoint.Points}
                 into rez
                 select new ResultItems {
-                    name = rez.Key.Name,
-                    low = rez.Sum(awards => (awards.AwardPoint.Points >= 0 && awards.AwardPoint.Points < 2 ? 1 : 0)),
-                    mid = rez.Sum(awards => (awards.AwardPoint.Points >= 2 && awards.AwardPoint.Points < 4 ? 1 : 0)),
-                    high = rez.Sum(awards => (awards.AwardPoint.Points >= 4 ? 1 : 0)),
-                    total = rez.Sum(awards => awards.AwardPoint.Points)
+                    Name = rez.Key.Name,
+                    Low = rez.Sum(awards => (awards.AwardPoint.Points >= 0 && awards.AwardPoint.Points < LowMax ? 1 : 0)),
+                    Mid = rez.Sum(awards => (awards.AwardPoint.Points >= LowMax && awards.AwardPoint.Points < MidMax ? 1 : 0)),
+                    High = rez.Sum(awards => (awards.AwardPoint.Points >= MidMax ? 1 : 0)),
+                    Total = rez.Sum(awards => awards.AwardPoint.Points)
                 };
 
-            int thisYearsTotalPoints = (from awards in db.ScoreBoardAwardsBAwards
+            int thisYearsTotalPoints = (from awards in _db.ScoreBoardAwardsBAwards
                                         where (awards.AwardTime.Year == DateTime.Now.Year)
                                         select awards.AwardPoint).Count();
 
@@ -47,16 +57,9 @@ namespace ScoreboardMsSql.Controllers
             return View(result);
         }
         
-        public ActionResult Monthly()
-        {
-            var result = new Tuple<DataTable, DataTable>(new DataTable(), new DataTable());
-
-            return View(result);
-        }
-
         protected override void Dispose(bool disposing)
         {
-            db.Dispose();
+            _db.Dispose();
             base.Dispose(disposing);
         }
     }

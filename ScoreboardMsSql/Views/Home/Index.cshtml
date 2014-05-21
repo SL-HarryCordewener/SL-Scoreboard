@@ -12,24 +12,24 @@
     <table>
         <thead>
             <tr>
-                <th>POS.</th>
-                <th>Name</th>
-                <th>LOW</th>
-                <th>MID</th>
-                <th>HIGH</th>
-                <th>TOTAL</th>
+                <th class="display-label">POS.</th>
+                <th class="display-label">Name</th>
+                <th class="display-label">LOW</th>
+                <th class="display-label">MID</th>
+                <th class="display-label">HIGH</th>
+                <th class="display-label">TOTAL</th>
             </tr>
         </thead>
         <tbody>
-            @foreach (HomeController.ResultItems row in Model.Item1)
+            @foreach (var row in Model.Item1)
             {
                 <tr>
-                    <td>@row.pos</td>
-                    <td>@row.name</td>
-                    <td>@row.low</td>
-                    <td>@row.mid</td>
-                    <td>@row.high</td>
-                    <td>@row.total</td>
+                    <td class="display-field">@row.Pos</td>
+                    <td class="display-field">@row.Name</td>
+                    <td class="display-field">@row.Low</td>
+                    <td class="display-field">@row.Mid</td>
+                    <td class="display-field">@row.High</td>
+                    <td class="display-field">@row.Total</td>
                 </tr>
             }         
         </tbody>

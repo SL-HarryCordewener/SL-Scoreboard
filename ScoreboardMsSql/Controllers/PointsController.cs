@@ -7,14 +7,14 @@ namespace ScoreboardMsSql.Controllers
 {
     public class PointsController : Controller
     {
-        private readonly ScoreboardContext db = new ScoreboardContext();
+        private readonly ScoreboardContext _db = new ScoreboardContext();
 
         //
         // GET: /Points/
 
         public ViewResult Index()
         {
-            IQueryable<ScoreboardPoints> scoreboardbugs = db.ScoreBoardPoints.Include(s => s.Awards);
+            IQueryable<ScoreboardPoints> scoreboardbugs = _db.ScoreBoardPoints.Include(s => s.Awards);
             return View(scoreboardbugs.ToList());
         }
 
@@ -23,7 +23,7 @@ namespace ScoreboardMsSql.Controllers
 
         public ViewResult Details(int id)
         {
-            ScoreboardPoints scoreboardbugs = db.ScoreBoardPoints.Find(id);
+            ScoreboardPoints scoreboardbugs = _db.ScoreBoardPoints.Find(id);
             return View(scoreboardbugs);
         }
 
@@ -32,7 +32,7 @@ namespace ScoreboardMsSql.Controllers
 
         public ActionResult Create()
         {
-            ViewBag.Id = new SelectList(db.ScoreBoardAwardsBAwards, "Id", "Id");
+            ViewBag.Id = new SelectList(_db.ScoreBoardAwardsBAwards, "Id", "Id");
             return View();
         }
 
@@ -44,12 +44,12 @@ namespace ScoreboardMsSql.Controllers
         {
             if (ModelState.IsValid)
             {
-                db.ScoreBoardPoints.Add(scoreboardbugs);
-                db.SaveChanges();
+                _db.ScoreBoardPoints.Add(scoreboardbugs);
+                _db.SaveChanges();
                 return RedirectToAction("Index");
             }
 
-            ViewBag.Id = new SelectList(db.ScoreBoardAwardsBAwards, "Id", "Id", scoreboardbugs.Id);
+            ViewBag.Id = new SelectList(_db.ScoreBoardAwardsBAwards, "Id", "Id", scoreboardbugs.Id);
             return View(scoreboardbugs);
         }
 
@@ -58,8 +58,8 @@ namespace ScoreboardMsSql.Controllers
 
         public ActionResult Edit(int id)
         {
-            ScoreboardPoints scoreboardbugs = db.ScoreBoardPoints.Find(id);
-            ViewBag.Id = new SelectList(db.ScoreBoardAwardsBAwards, "Id", "Id", scoreboardbugs.Id);
+            ScoreboardPoints scoreboardbugs = _db.ScoreBoardPoints.Find(id);
+            ViewBag.Id = new SelectList(_db.ScoreBoardAwardsBAwards, "Id", "Id", scoreboardbugs.Id);
             return View(scoreboardbugs);
         }
 
@@ -71,11 +71,11 @@ namespace ScoreboardMsSql.Controllers
         {
             if (ModelState.IsValid)
             {
-                db.Entry(scoreboardbugs).State = EntityState.Modified;
-                db.SaveChanges();
+                _db.Entry(scoreboardbugs).State = EntityState.Modified;
+                _db.SaveChanges();
                 return RedirectToAction("Index");
             }
-            ViewBag.Id = new SelectList(db.ScoreBoardAwardsBAwards, "Id", "Id", scoreboardbugs.Id);
+            ViewBag.Id = new SelectList(_db.ScoreBoardAwardsBAwards, "Id", "Id", scoreboardbugs.Id);
             return View(scoreboardbugs);
         }
 
@@ -84,7 +84,7 @@ namespace ScoreboardMsSql.Controllers
 
         public ActionResult Delete(int id)
         {
-            ScoreboardPoints scoreboardbugs = db.ScoreBoardPoints.Find(id);
+            ScoreboardPoints scoreboardbugs = _db.ScoreBoardPoints.Find(id);
             return View(scoreboardbugs);
         }
 
@@ -94,15 +94,15 @@ namespace ScoreboardMsSql.Controllers
         [HttpPost, ActionName("Delete")]
         public ActionResult DeleteConfirmed(int id)
         {
-            ScoreboardPoints scoreboardbugs = db.ScoreBoardPoints.Find(id);
-            db.ScoreBoardPoints.Remove(scoreboardbugs);
-            db.SaveChanges();
+            ScoreboardPoints scoreboardbugs = _db.ScoreBoardPoints.Find(id);
+            _db.ScoreBoardPoints.Remove(scoreboardbugs);
+            _db.SaveChanges();
             return RedirectToAction("Index");
         }
 
         protected override void Dispose(bool disposing)
         {
-            db.Dispose();
+            _db.Dispose();
             base.Dispose(disposing);
         }
     }

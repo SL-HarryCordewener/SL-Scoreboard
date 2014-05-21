@@ -28,14 +28,15 @@ namespace ScoreboardMsSql.Controllers
             return View(scoreboardawards);
         }
 
-        //
-        // GET: /Awards/Create
-
+        // This is an alternate way to fill out user list. This is just here for reference. Function jumps are expensive.
         private void PopulateUserList(object selecterUser = null)
         {
             var userQuery = from d in db.ScoreBoardUsers select d;
             ViewData["AwardUser"] = new SelectList(userQuery, "Id", "Name", selecterUser);
         }
+
+        //
+        // GET: /Awards/Create
 
         public ActionResult Create()
         {
@@ -51,8 +52,6 @@ namespace ScoreboardMsSql.Controllers
         [HttpPost]
         public ActionResult Create(ScoreboardAwards scoreboardawards)
         {
-            //PopulateUserList(scoreboardawards.AwardUser);
-
             if (ModelState.IsValid)
             {
                 db.ScoreBoardAwardsBAwards.Add(scoreboardawards);
@@ -81,9 +80,6 @@ namespace ScoreboardMsSql.Controllers
             ViewData["AwardUser"] = new SelectList(db.ScoreBoardUsers, "Id", "Name", scoreboardawards.AwardUser);
             ViewData["AwardPoint"] = new SelectList(db.ScoreBoardPoints, "Id", "Description", scoreboardawards.AwardPoint);
             ViewBag.Error = "Something went wrong.";
-
-            // ViewBag.Id = new SelectList(db.ScoreBoardPoints, "Id", "Description");
-            // ViewBag.Id = new SelectList(db.ScoreBoardAwardsBAwards, "Name", "Id", scoreboardawards.Id);
 
             return View(scoreboardawards);
         }
