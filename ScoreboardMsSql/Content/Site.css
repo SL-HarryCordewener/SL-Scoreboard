@@ -265,82 +265,162 @@ select { max-width: 700px; }
 /* What follows are the datepicker CSS entries */
 
 .ui-datepicker {
-    width: 216px;  
-    height: auto;  
-    margin: 5px auto 0;  
-    font: 9pt Arial, sans-serif;
-    -webkit-box-shadow: 0 0 10px 0 #000000;
-    -webkit-box-shadow: 0 0 10px 0 rgba(0, 0, 0, .5);
     -moz-box-shadow: 0 0 10px 0 #000000;
     -moz-box-shadow: 0 0 10px 0 rgba(0, 0, 0, .5);
+    -webkit-box-shadow: 0 0 10px 0 #000000;
+    -webkit-box-shadow: 0 0 10px 0 rgba(0, 0, 0, .5);
     box-shadow: 0 0 10px 0 #000000;
     box-shadow: 0 0 10px 0 rgba(0, 0, 0, .5);
+    font: 9pt Arial, sans-serif;
+    height: auto;
+    margin: 5px auto 0;
+    width: 216px;
 }
 
-.ui-datepicker table {  
-    width: 100%;  
-}  
+.ui-datepicker table { width: 100%; }
 
 .ui-datepicker-header {
-    background-color: #000;  
-    color: #e0e0e0;  
-    font-weight: bold;
-    -webkit-box-shadow: inset 0 1px 1px 0 #fafafa;
-    -webkit-box-shadow: inset 0 1px 1px 0 rgba(250, 250, 250, 2);
     -moz-box-shadow: inset 0 1px 1px 0 #fafafa;
     -moz-box-shadow: inset 0 1px 1px 0 rgba(250, 250, 250, .2);
-    box-shadow: inset 0 1px 1px 0 #fafafa;
-    box-shadow: inset 0 1px 1px 0 rgba(250, 250, 250, .2);  
-    text-shadow: 1px -1px 0 #000;  
-    filter: dropshadow(color=#000, offx=1, offy=-1);  
-    line-height: 30px;  
-    border-width: 1px 0 0 0;  
-    border-style: solid;  
+    -webkit-box-shadow: inset 0 1px 1px 0 #fafafa;
+    -webkit-box-shadow: inset 0 1px 1px 0 rgba(250, 250, 250, 2);
+    background-color: #000;
     border-color: #111;
+    border-style: solid;
+    border-width: 1px 0 0 0;
+    box-shadow: inset 0 1px 1px 0 #fafafa;
+    box-shadow: inset 0 1px 1px 0 rgba(250, 250, 250, .2);
+    color: #e0e0e0;
+    font-weight: bold;
+    line-height: 30px;
+    text-shadow: 1px -1px 0 #000;
 }
 
-.ui-datepicker-title {  
-    text-align: center;  
-}  
+.ui-datepicker-title { text-align: center; }
 
-.ui-datepicker-prev, .ui-datepicker-next {  
-    display: inline-block;  
-    background-image: url('/Content/themes/base/images/arrow.png'); 
-    width: 30px;  
-    height: 30px;  
-    text-align: center;  
-    cursor: pointer;
+.ui-datepicker-prev, .ui-datepicker-next {
+    background-image: url('/Content/themes/base/images/arrow.png');
     color: white;
-    line-height: 600%;  
-    overflow: hidden;  
+    cursor: pointer;
+    display: inline-block;
+    height: 30px;
+    line-height: 600%;
+    overflow: hidden;
+    text-align: center;
+    width: 30px;
+}
+
+.ui-datepicker-prev {
+    background-position: center -30px;
+    float: left;
+}
+
+.ui-datepicker-next {
+    background-position: center 0;
+    float: right;
+}
+
+.ui-datepicker thead {
+    background-color: #f7f7f7;
+    background-image: -moz-linear-gradient(top, #f7f7f7 0, #f1f1f1 100%);
+    background-image: -webkit-gradient(linear, left top, left bottombottom, color-stop(0, #f7f7f7), color-stop(100%, #f1f1f1));
+    background-image: -webkit-linear-gradient(top, #f7f7f7 0, #f1f1f1 100%);
+    background-image: -o-linear-gradient(top, #f7f7f7 0, #f1f1f1 100%);
+    background-image: -ms-linear-gradient(top, #f7f7f7 0, #f1f1f1 100%);
+    /* ReSharper disable once InvalidValue */
+    background-image: linear-gradient(top, #f7f7f7 0, #f1f1f1 100%);
+    border-bottom: 1px solid #bbb;
+    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#f7f7f7', endColorstr='#f1f1f1', GradientType=0);
+}
+
+.ui-datepicker th {
+    color: black;
+    font-size: 6pt;
+    padding: 5px 0;
+    text-transform: uppercase;
 }  
 
-.ui-datepicker-prev {  
-    float: left;  
-    background-position: center -30px;  
+.ui-datepicker tbody td {  
+    padding: 0;  
+    border-right: 1px solid #bbb;  
 }  
-.ui-datepicker-next {  
-    float: right;  
-    background-position: center 0px;  
+.ui-datepicker tbody td:last-child {  
+    border-right: 0px;  
 }  
-
-.ui-datepicker thead {  
-    background-color: #f7f7f7;  
-    background-image: -moz-linear-gradient(top,  #f7f7f7 0, #f1f1f1 100%);  
-    background-image: -webkit-gradient(linear, left top, left bottombottom, color-stop(0%,#f7f7f7), color-stop(100%,#f1f1f1));  
-    background-image: -webkit-linear-gradient(top,  #f7f7f7 0,#f1f1f1 100%);  
-    background-image: -o-linear-gradient(top,  #f7f7f7 0,#f1f1f1 100%);  
-    background-image: -ms-linear-gradient(top,  #f7f7f7 0,#f1f1f1 100%);  
-    background-image: linear-gradient(top,  #f7f7f7 0,#f1f1f1 100%);  
-    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#f7f7f7', endColorstr='#f1f1f1',GradientType=0 );  
+.ui-datepicker tbody tr {  
     border-bottom: 1px solid #bbb;  
 }  
-
-.ui-datepicker th {  
-    text-transform: uppercase;  
-    font-size: 6pt;  
-    padding: 5px 0;  
-    color: #666666;  
-    text-shadow: 1px 0 0 #fff;  
-    filter: dropshadow(color=#fff, offx=1, offy=0);  
+.ui-datepicker tbody tr:last-child {  
+    border-bottom: 0px;  
 }  
+
+
+
+
+.ui-datepicker td span, .ui-datepicker td a {
+    color: #666666;
+    display: inline-block;
+    filter: dropshadow(color=#fff, offx=1, offy=1);
+    font-weight: bold;
+    height: 30px;
+    line-height: 30px;
+    text-align: center;
+    text-shadow: 1px 1px 0 #fff;
+    width: 30px;
+}
+
+.ui-datepicker-calendar .ui-state-default {
+    -moz-box-shadow: inset 1px 1px 0 0 #fafafa;
+    -moz-box-shadow: inset 1px 1px 0 0 rgba(250, 250, 250, .5);
+    -webkit-box-shadow: inset 1px 1px 0 0 #fafafa;
+    -webkit-box-shadow: inset 1px 1px 0 0 rgba(250, 250, 250, .5);
+    background: #ededed;
+    background: -moz-linear-gradient(top, #ededed 0, #dedede 100%);
+    background: -webkit-gradient(linear, left top, left bottombottom, color-stop(0, #ededed), color-stop(100%, #dedede));
+    background: -webkit-linear-gradient(top, #ededed 0, #dedede 100%);
+    background: -o-linear-gradient(top, #ededed 0, #dedede 100%);
+    background: -ms-linear-gradient(top, #ededed 0, #dedede 100%);
+    /* ReSharper disable once InvalidValue */
+    background: linear-gradient(top, #ededed 0, #dedede 100%);
+    box-shadow: inset 1px 1px 0 0 #fafafa;
+    box-shadow: inset 1px 1px 0 0 rgba(250, 250, 250, .5);
+    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#ededed', endColorstr='#dedede', GradientType=0);
+}
+
+.ui-datepicker-unselectable .ui-state-default {
+    background: #f4f4f4;
+    color: #b4b3b3;
+}
+
+.ui-datepicker-calendar .ui-state-hover { background: #f7f7f7; }
+
+.ui-datepicker-calendar .ui-state-active {
+    -moz-box-shadow: inset 0 0 10px 0 #000000;
+    -moz-box-shadow: inset 0 0 10px 0 rgba(0, 0, 0, .1);
+    -webkit-box-shadow: inset 0 0 10px 0 #000000;
+    -webkit-box-shadow: inset 0 0 10px 0 rgba(0, 0, 0, .1);
+    background: #6eafbf;
+    border: 1px solid #55838f;
+    box-shadow: inset 0 0 10px 0 #000000;
+    box-shadow: inset 0 0 10px 0 rgba(0, 0, 0, .1);
+    color: #e0e0e0;
+    filter: dropshadow(color=#4d7a85, offx=0, offy=1);
+    margin: -1px;
+    position: relative;
+    text-shadow: 0 1px 0 #4d7a85;
+}
+
+.ui-datepicker-calendar td:first-child .ui-state-active {
+    margin-left: 0;
+    width: 29px;
+}
+
+.ui-datepicker-calendar td:last-child .ui-state-active {
+    margin-right: 0;
+    width: 29px;
+}
+
+.ui-datepicker-calendar tr:last-child .ui-state-active {
+    height: 29px;
+    margin-bottom: 0;
+}
