@@ -1,5 +1,6 @@
 ﻿@using ScoreboardMsSql.Models.Scoreboard
 @model System.Collections.Generic.IEnumerable<ScoreboardAwards>
+@Html.AntiForgeryToken() 
 
 @{
     ViewBag.Title = "Award Admin Index";
@@ -29,7 +30,8 @@
         </th>
     </tr>
 
-@foreach (ScoreboardAwards item in Model) {
+@foreach (ScoreboardAwards item in Model)
+{
     <tr>
         <td>
             @Html.DisplayFor(modelItem => item.AwardTime)
@@ -38,15 +40,15 @@
             @Html.DisplayFor(modelItem => item.AwardUser.Name)
         </td>
         <td>
-            @Html.DisplayFor(modelItem=> item.AwardPoint.Description)
+            @Html.DisplayFor(modelItem => item.AwardPoint.Description)
         </td>
         <td>
-            @Html.DisplayFor(modelItem=> item.AwardPoint.Points)
+            @Html.DisplayFor(modelItem => item.AwardPoint.Points)
         </td>
         <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.Id }) |
-            @Html.ActionLink("Details", "Details", new { id=item.Id }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.Id })
+            @Html.ActionLink("Edit", "Edit", new { id = item.Id }) |
+            @Html.ActionLink("Details", "Details", new { id = item.Id }) |
+            @Html.ActionLink("Delete", "Delete", new { id = item.Id })
         </td>
     </tr>
 }

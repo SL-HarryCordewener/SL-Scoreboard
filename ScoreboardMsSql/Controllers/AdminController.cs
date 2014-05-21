@@ -14,6 +14,7 @@ namespace ScoreboardMsSql.Controllers
         //
         // GET: /Admin/
 
+        [Authorize]
         public ActionResult Index()
         {
             return View();

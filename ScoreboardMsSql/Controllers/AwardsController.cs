@@ -12,7 +12,7 @@ namespace ScoreboardMsSql.Controllers
 
         //
         // GET: /Awards/
-
+        [Authorize, ValidateAntiForgeryToken]
         public ViewResult Index()
         {
             var scoreboardawardsbawards = db.ScoreBoardAwardsBAwards.Include(s => s.AwardPoint).Include(u => u.AwardUser);
@@ -21,7 +21,7 @@ namespace ScoreboardMsSql.Controllers
 
         //
         // GET: /Awards/Details/5
-
+        [Authorize, ValidateAntiForgeryToken]
         public ViewResult Details(int id)
         {
             ScoreboardAwards scoreboardawards = db.ScoreBoardAwardsBAwards.Find(id);
@@ -37,7 +37,7 @@ namespace ScoreboardMsSql.Controllers
 
         //
         // GET: /Awards/Create
-
+        [Authorize, ValidateAntiForgeryToken]
         public ActionResult Create()
         {
             PopulateUserList();
@@ -48,8 +48,7 @@ namespace ScoreboardMsSql.Controllers
 
         //
         // POST: /Awards/Create
-
-        [HttpPost]
+        [HttpPost, Authorize, ValidateAntiForgeryToken]
         public ActionResult Create(ScoreboardAwards scoreboardawards)
         {
             if (ModelState.IsValid)
@@ -86,7 +85,7 @@ namespace ScoreboardMsSql.Controllers
         
         //
         // GET: /Awards/Edit/5
- 
+        [Authorize, ValidateAntiForgeryToken]
         public ActionResult Edit(int id)
         {
             ScoreboardAwards scoreboardawards = db.ScoreBoardAwardsBAwards.Find(id);
@@ -98,7 +97,7 @@ namespace ScoreboardMsSql.Controllers
         //
         // POST: /Awards/Edit/5
 
-        [HttpPost]
+        [HttpPost, Authorize, ValidateAntiForgeryToken]
         public ActionResult Edit(ScoreboardAwards scoreboardawards)
         {
             if (ModelState.IsValid)
@@ -132,7 +131,7 @@ namespace ScoreboardMsSql.Controllers
 
         //
         // GET: /Awards/Delete/5
- 
+        [Authorize, ValidateAntiForgeryToken]
         public ActionResult Delete(int id)
         {
             ScoreboardAwards scoreboardawards = db.ScoreBoardAwardsBAwards.Find(id);
@@ -141,8 +140,8 @@ namespace ScoreboardMsSql.Controllers
 
         //
         // POST: /Awards/Delete/5
-
-        [HttpPost, ActionName("Delete")]
+        [Authorize]
+        [HttpPost, ActionName("Delete"), Authorize, ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {            
             ScoreboardAwards scoreboardawards = db.ScoreBoardAwardsBAwards.Find(id);
