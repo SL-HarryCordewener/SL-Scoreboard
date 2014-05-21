@@ -1,4 +1,23 @@
-﻿<!DOCTYPE html>
+﻿@{
+    var months = new System.Collections.Generic.Dictionary<int, string>
+    {
+        {1, "January"},
+        {2, "February"},
+        {3, "March"},
+        {4, "April"},
+        {5, "May"},
+        {6, "June"},
+        {7, "July"},
+        {8, "August"},
+        {9, "September"},
+        {10, "October"},
+        {11, "November"},
+        {12, "December"}
+    };
+    ViewBag.Top = System.DateTime.Now.Year + " Great Bug Open: " + months[System.DateTime.Now.Month];
+    
+}
+<!DOCTYPE html>
 <html>
 <head>
     <meta charset="utf-8" />
@@ -16,9 +35,9 @@
 <body>
     <div class="page">
         <section id="container">
-        <div id="title">
-            <h1><img src="/Content/themes/base/images/ladybug.jpg" alt="ladybug" class="bugimage" /> 2014 Great Point Open</h1>
-        </div>
+            <div id="title">
+                <h1><a href="@Url.Action("Index", "Home")"><img src="@Url.Content("/Content/themes/base/images/ladybug.jpg")" alt="Edit" alt="ladybug" class="bugimage" /></a>@ViewBag.Top</h1>
+            </div>
         <div id="login">
             <li>@Html.ActionLink("Admin", "Index", "Admin")</li>
         </div>

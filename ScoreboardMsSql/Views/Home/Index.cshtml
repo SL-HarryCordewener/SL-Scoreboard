@@ -1,9 +1,25 @@
 ﻿@using System
+@using System.Collections.Generic
 @using ScoreboardMsSql.Controllers
-@model Tuple<System.Collections.Generic.IEnumerable<HomeController.ResultItems>, int>
+@model Tuple<IEnumerable<HomeController.ResultItems>, int>
 
 @{
-    ViewBag.Title = DateTime.Now.Year + " Great Point Open";
+    var months = new Dictionary<int, string>
+    {
+        {1, "January"},
+        {2, "February"},
+        {3, "March"},
+        {4, "April"},
+        {5, "May"},
+        {6, "June"},
+        {7, "July"},
+        {8, "August"},
+        {9, "September"},
+        {10, "October"},
+        {11, "November"},
+        {12, "December"}
+    };
+    ViewBag.Title = DateTime.Now.Year + " Great Bug Open: " + months[DateTime.Now.Month];
 }
 
 <!-- Meta within Meta is bad. -->

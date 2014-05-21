@@ -37,7 +37,7 @@ namespace ScoreboardMsSql.Controllers
         {
             // var scoreboardawardsbawards = db.ScoreBoardAwardsBAwards.Include(award => award.AwardPoint).Include(award => award.AwardUser);
             var scoreboardawardsbawards = from awards in _db.ScoreBoardAwardsBAwards
-                where (awards.AwardTime.Year == DateTime.Now.Year)
+                where (awards.AwardTime.Year == DateTime.Now.Year && awards.AwardTime.Month == DateTime.Now.Month )
                 group awards by new {awards.AwardUser.Id, awards.AwardUser.Name, awards.AwardPoint.Points}
                 into rez
                 select new ResultItems {
@@ -49,7 +49,7 @@ namespace ScoreboardMsSql.Controllers
                 };
 
             int thisYearsTotalPoints = (from awards in _db.ScoreBoardAwardsBAwards
-                                        where (awards.AwardTime.Year == DateTime.Now.Year)
+                                        where (awards.AwardTime.Year == DateTime.Now.Year && awards.AwardTime.Month == DateTime.Now.Month)
                                         select awards.AwardPoint).Count();
 
             var result = new Tuple<IEnumerable<ResultItems>, int>(scoreboardawardsbawards.ToList(), thisYearsTotalPoints);
