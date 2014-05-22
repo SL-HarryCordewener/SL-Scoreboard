@@ -2,7 +2,7 @@
 
 namespace ScoreboardMsSql.Models.Scoreboard
 {
-    public class ScoreboardContext: DbContext
+    public class ScoreboardContext : DbContext
     {
         public ScoreboardContext() : base("ScoreboardContext")
         {

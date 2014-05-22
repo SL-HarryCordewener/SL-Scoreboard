@@ -4,10 +4,10 @@ using System.Web.Mvc;
 using ScoreboardMsSql.Models.Scoreboard;
 
 namespace ScoreboardMsSql.Controllers
-{ 
+{
     public class UsersController : Controller
     {
-        private ScoreboardContext db = new ScoreboardContext();
+        private readonly ScoreboardContext db = new ScoreboardContext();
 
         //
         // GET: /Users/
@@ -32,7 +32,7 @@ namespace ScoreboardMsSql.Controllers
         public ActionResult Create()
         {
             return View();
-        } 
+        }
 
         //
         // POST: /Users/Create
@@ -44,15 +44,15 @@ namespace ScoreboardMsSql.Controllers
             {
                 db.ScoreBoardUsers.Add(scoreboardusers);
                 db.SaveChanges();
-                return RedirectToAction("Index");  
+                return RedirectToAction("Index");
             }
 
             return View(scoreboardusers);
         }
-        
+
         //
         // GET: /Users/Edit/5
- 
+
         public ActionResult Edit(int id)
         {
             ScoreboardUsers scoreboardusers = db.ScoreBoardUsers.Find(id);
@@ -76,7 +76,7 @@ namespace ScoreboardMsSql.Controllers
 
         //
         // GET: /Users/Delete/5
- 
+
         public ActionResult Delete(int id)
         {
             ScoreboardUsers scoreboardusers = db.ScoreBoardUsers.Find(id);
@@ -88,7 +88,7 @@ namespace ScoreboardMsSql.Controllers
 
         [HttpPost, ActionName("Delete")]
         public ActionResult DeleteConfirmed(int id)
-        {            
+        {
             ScoreboardUsers scoreboardusers = db.ScoreBoardUsers.Find(id);
             db.ScoreBoardUsers.Remove(scoreboardusers);
             db.SaveChanges();

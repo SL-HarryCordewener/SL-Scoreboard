@@ -5,17 +5,18 @@ using System.Web.Mvc;
 using ScoreboardMsSql.Models.Scoreboard;
 
 namespace ScoreboardMsSql.Controllers
-{ 
+{
     public class AwardsController : Controller
     {
-        private ScoreboardContext db = new ScoreboardContext();
+        private readonly ScoreboardContext db = new ScoreboardContext();
 
         //
         // GET: /Awards/
 
         public ViewResult Index()
         {
-            var scoreboardawardsbawards = db.ScoreBoardAwardsBAwards.Include(s => s.AwardPoint).Include(u => u.AwardUser);
+            IQueryable<ScoreboardAwards> scoreboardawardsbawards =
+                db.ScoreBoardAwardsBAwards.Include(s => s.AwardPoint).Include(u => u.AwardUser);
             return View(scoreboardawardsbawards.ToList());
         }
 
@@ -31,7 +32,7 @@ namespace ScoreboardMsSql.Controllers
         // This is an alternate way to fill out user list. This is just here for reference. Function jumps are expensive.
         private void PopulateUserList(object selecterUser = null)
         {
-            var userQuery = from d in db.ScoreBoardUsers select d;
+            IQueryable<ScoreboardUsers> userQuery = from d in db.ScoreBoardUsers select d;
             ViewData["AwardUser"] = new SelectList(userQuery, "Id", "Name", selecterUser);
         }
 
@@ -44,7 +45,7 @@ namespace ScoreboardMsSql.Controllers
             ViewData["AwardPoint"] = new SelectList(db.ScoreBoardPoints, "Id", "Description");
 
             return View();
-        } 
+        }
 
         //
         // POST: /Awards/Create
@@ -56,20 +57,23 @@ namespace ScoreboardMsSql.Controllers
             {
                 db.ScoreBoardAwardsBAwards.Add(scoreboardawards);
                 db.SaveChanges();
-                return RedirectToAction("Index");  
+                return RedirectToAction("Index");
             }
 
             try
             {
-                var realUser = (from user in db.ScoreBoardUsers where user.Id == scoreboardawards.AwardUser.Id select user).Single();
-                var realPoint = (from point in db.ScoreBoardPoints where point.Id == scoreboardawards.AwardPoint.Id select point).Single();
+                ScoreboardUsers realUser =
+                    (from user in db.ScoreBoardUsers where user.Id == scoreboardawards.AwardUser.Id select user).Single();
+                ScoreboardPoints realPoint =
+                    (from point in db.ScoreBoardPoints where point.Id == scoreboardawards.AwardPoint.Id select point)
+                        .Single();
 
                 scoreboardawards.AwardUser = realUser;
                 scoreboardawards.AwardPoint = realPoint;
 
                 db.ScoreBoardAwardsBAwards.Add(scoreboardawards);
                 db.SaveChanges();
-                return RedirectToAction("Index");  
+                return RedirectToAction("Index");
             }
             catch (Exception)
             {
@@ -78,20 +82,22 @@ namespace ScoreboardMsSql.Controllers
 
 
             ViewData["AwardUser"] = new SelectList(db.ScoreBoardUsers, "Id", "Name", scoreboardawards.AwardUser);
-            ViewData["AwardPoint"] = new SelectList(db.ScoreBoardPoints, "Id", "Description", scoreboardawards.AwardPoint);
+            ViewData["AwardPoint"] = new SelectList(db.ScoreBoardPoints, "Id", "Description",
+                scoreboardawards.AwardPoint);
             ViewBag.Error = "Something went wrong.";
 
             return View(scoreboardawards);
         }
-        
+
         //
         // GET: /Awards/Edit/5
- 
+
         public ActionResult Edit(int id)
         {
             ScoreboardAwards scoreboardawards = db.ScoreBoardAwardsBAwards.Find(id);
             ViewData["AwardUser"] = new SelectList(db.ScoreBoardUsers, "Id", "Name", scoreboardawards.AwardUser);
-            ViewData["AwardPoint"] = new SelectList(db.ScoreBoardPoints, "Id", "Description", scoreboardawards.AwardPoint);
+            ViewData["AwardPoint"] = new SelectList(db.ScoreBoardPoints, "Id", "Description",
+                scoreboardawards.AwardPoint);
             return View(scoreboardawards);
         }
 
@@ -110,8 +116,11 @@ namespace ScoreboardMsSql.Controllers
 
             try
             {
-                var realUser = (from user in db.ScoreBoardUsers where user.Id == scoreboardawards.AwardUser.Id select user).Single();
-                var realPoint = (from point in db.ScoreBoardPoints where point.Id == scoreboardawards.AwardPoint.Id select point).Single();
+                ScoreboardUsers realUser =
+                    (from user in db.ScoreBoardUsers where user.Id == scoreboardawards.AwardUser.Id select user).Single();
+                ScoreboardPoints realPoint =
+                    (from point in db.ScoreBoardPoints where point.Id == scoreboardawards.AwardPoint.Id select point)
+                        .Single();
 
                 scoreboardawards.AwardUser = realUser;
                 scoreboardawards.AwardPoint = realPoint;
@@ -126,13 +135,14 @@ namespace ScoreboardMsSql.Controllers
             }
 
             ViewData["AwardUser"] = new SelectList(db.ScoreBoardUsers, "Id", "Name", scoreboardawards.AwardUser);
-            ViewData["AwardPoint"] = new SelectList(db.ScoreBoardPoints, "Id", "Description", scoreboardawards.AwardPoint);
+            ViewData["AwardPoint"] = new SelectList(db.ScoreBoardPoints, "Id", "Description",
+                scoreboardawards.AwardPoint);
             return View(scoreboardawards);
         }
 
         //
         // GET: /Awards/Delete/5
- 
+
         public ActionResult Delete(int id)
         {
             ScoreboardAwards scoreboardawards = db.ScoreBoardAwardsBAwards.Find(id);
@@ -144,7 +154,7 @@ namespace ScoreboardMsSql.Controllers
 
         [HttpPost, ActionName("Delete")]
         public ActionResult DeleteConfirmed(int id)
-        {            
+        {
             ScoreboardAwards scoreboardawards = db.ScoreBoardAwardsBAwards.Find(id);
             db.ScoreBoardAwardsBAwards.Remove(scoreboardawards);
             db.SaveChanges();
