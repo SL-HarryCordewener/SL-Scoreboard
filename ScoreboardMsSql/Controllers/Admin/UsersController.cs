@@ -3,18 +3,18 @@ using System.Linq;
 using System.Web.Mvc;
 using ScoreboardMsSql.Models.Scoreboard;
 
-namespace ScoreboardMsSql.Controllers
+namespace ScoreboardMsSql.Controllers.Admin
 {
     public class UsersController : Controller
     {
-        private readonly ScoreboardContext db = new ScoreboardContext();
+        private readonly ScoreboardContext _db = new ScoreboardContext();
 
         //
         // GET: /Users/
 
         public ViewResult Index()
         {
-            return View(db.ScoreBoardUsers.ToList());
+            return View(_db.ScoreBoardUsers.ToList());
         }
 
         //
@@ -22,7 +22,7 @@ namespace ScoreboardMsSql.Controllers
 
         public ViewResult Details(int id)
         {
-            ScoreboardUsers scoreboardusers = db.ScoreBoardUsers.Find(id);
+            ScoreboardUsers scoreboardusers = _db.ScoreBoardUsers.Find(id);
             return View(scoreboardusers);
         }
 
@@ -42,8 +42,8 @@ namespace ScoreboardMsSql.Controllers
         {
             if (ModelState.IsValid)
             {
-                db.ScoreBoardUsers.Add(scoreboardusers);
-                db.SaveChanges();
+                _db.ScoreBoardUsers.Add(scoreboardusers);
+                _db.SaveChanges();
                 return RedirectToAction("Index");
             }
 
@@ -55,7 +55,7 @@ namespace ScoreboardMsSql.Controllers
 
         public ActionResult Edit(int id)
         {
-            ScoreboardUsers scoreboardusers = db.ScoreBoardUsers.Find(id);
+            ScoreboardUsers scoreboardusers = _db.ScoreBoardUsers.Find(id);
             return View(scoreboardusers);
         }
 
@@ -67,8 +67,8 @@ namespace ScoreboardMsSql.Controllers
         {
             if (ModelState.IsValid)
             {
-                db.Entry(scoreboardusers).State = EntityState.Modified;
-                db.SaveChanges();
+                _db.Entry(scoreboardusers).State = EntityState.Modified;
+                _db.SaveChanges();
                 return RedirectToAction("Index");
             }
             return View(scoreboardusers);
@@ -79,7 +79,7 @@ namespace ScoreboardMsSql.Controllers
 
         public ActionResult Delete(int id)
         {
-            ScoreboardUsers scoreboardusers = db.ScoreBoardUsers.Find(id);
+            ScoreboardUsers scoreboardusers = _db.ScoreBoardUsers.Find(id);
             return View(scoreboardusers);
         }
 
@@ -89,15 +89,15 @@ namespace ScoreboardMsSql.Controllers
         [HttpPost, ActionName("Delete")]
         public ActionResult DeleteConfirmed(int id)
         {
-            ScoreboardUsers scoreboardusers = db.ScoreBoardUsers.Find(id);
-            db.ScoreBoardUsers.Remove(scoreboardusers);
-            db.SaveChanges();
+            ScoreboardUsers scoreboardusers = _db.ScoreBoardUsers.Find(id);
+            _db.ScoreBoardUsers.Remove(scoreboardusers);
+            _db.SaveChanges();
             return RedirectToAction("Index");
         }
 
         protected override void Dispose(bool disposing)
         {
-            db.Dispose();
+            _db.Dispose();
             base.Dispose(disposing);
         }
     }

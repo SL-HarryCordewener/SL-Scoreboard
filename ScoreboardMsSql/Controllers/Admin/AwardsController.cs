@@ -4,11 +4,11 @@ using System.Linq;
 using System.Web.Mvc;
 using ScoreboardMsSql.Models.Scoreboard;
 
-namespace ScoreboardMsSql.Controllers
+namespace ScoreboardMsSql.Controllers.Admin
 {
     public class AwardsController : Controller
     {
-        private readonly ScoreboardContext db = new ScoreboardContext();
+        private readonly ScoreboardContext _db = new ScoreboardContext();
 
         //
         // GET: /Awards/
@@ -16,7 +16,7 @@ namespace ScoreboardMsSql.Controllers
         public ViewResult Index()
         {
             IQueryable<ScoreboardAwards> scoreboardawardsbawards =
-                db.ScoreBoardAwardsBAwards.Include(s => s.AwardPoint).Include(u => u.AwardUser);
+                _db.ScoreBoardAwardsBAwards.Include(s => s.AwardPoint).Include(u => u.AwardUser);
             return View(scoreboardawardsbawards.ToList());
         }
 
@@ -25,14 +25,14 @@ namespace ScoreboardMsSql.Controllers
 
         public ViewResult Details(int id)
         {
-            ScoreboardAwards scoreboardawards = db.ScoreBoardAwardsBAwards.Find(id);
+            ScoreboardAwards scoreboardawards = _db.ScoreBoardAwardsBAwards.Find(id);
             return View(scoreboardawards);
         }
 
         // This is an alternate way to fill out user list. This is just here for reference. Function jumps are expensive.
         private void PopulateUserList(object selecterUser = null)
         {
-            IQueryable<ScoreboardUsers> userQuery = from d in db.ScoreBoardUsers select d;
+            IQueryable<ScoreboardUsers> userQuery = from d in _db.ScoreBoardUsers select d;
             ViewData["AwardUser"] = new SelectList(userQuery, "Id", "Name", selecterUser);
         }
 
@@ -42,7 +42,7 @@ namespace ScoreboardMsSql.Controllers
         public ActionResult Create()
         {
             PopulateUserList();
-            ViewData["AwardPoint"] = new SelectList(db.ScoreBoardPoints, "Id", "Description");
+            ViewData["AwardPoint"] = new SelectList(_db.ScoreBoardPoints, "Id", "Description");
 
             return View();
         }
@@ -55,24 +55,24 @@ namespace ScoreboardMsSql.Controllers
         {
             if (ModelState.IsValid)
             {
-                db.ScoreBoardAwardsBAwards.Add(scoreboardawards);
-                db.SaveChanges();
+                _db.ScoreBoardAwardsBAwards.Add(scoreboardawards);
+                _db.SaveChanges();
                 return RedirectToAction("Index");
             }
 
             try
             {
                 ScoreboardUsers realUser =
-                    (from user in db.ScoreBoardUsers where user.Id == scoreboardawards.AwardUser.Id select user).Single();
+                    (from user in _db.ScoreBoardUsers where user.Id == scoreboardawards.AwardUser.Id select user).Single();
                 ScoreboardPoints realPoint =
-                    (from point in db.ScoreBoardPoints where point.Id == scoreboardawards.AwardPoint.Id select point)
+                    (from point in _db.ScoreBoardPoints where point.Id == scoreboardawards.AwardPoint.Id select point)
                         .Single();
 
                 scoreboardawards.AwardUser = realUser;
                 scoreboardawards.AwardPoint = realPoint;
 
-                db.ScoreBoardAwardsBAwards.Add(scoreboardawards);
-                db.SaveChanges();
+                _db.ScoreBoardAwardsBAwards.Add(scoreboardawards);
+                _db.SaveChanges();
                 return RedirectToAction("Index");
             }
             catch (Exception)
@@ -81,8 +81,8 @@ namespace ScoreboardMsSql.Controllers
             }
 
 
-            ViewData["AwardUser"] = new SelectList(db.ScoreBoardUsers, "Id", "Name", scoreboardawards.AwardUser);
-            ViewData["AwardPoint"] = new SelectList(db.ScoreBoardPoints, "Id", "Description",
+            ViewData["AwardUser"] = new SelectList(_db.ScoreBoardUsers, "Id", "Name", scoreboardawards.AwardUser);
+            ViewData["AwardPoint"] = new SelectList(_db.ScoreBoardPoints, "Id", "Description",
                 scoreboardawards.AwardPoint);
             ViewBag.Error = "Something went wrong.";
 
@@ -94,9 +94,9 @@ namespace ScoreboardMsSql.Controllers
 
         public ActionResult Edit(int id)
         {
-            ScoreboardAwards scoreboardawards = db.ScoreBoardAwardsBAwards.Find(id);
-            ViewData["AwardUser"] = new SelectList(db.ScoreBoardUsers, "Id", "Name", scoreboardawards.AwardUser);
-            ViewData["AwardPoint"] = new SelectList(db.ScoreBoardPoints, "Id", "Description",
+            ScoreboardAwards scoreboardawards = _db.ScoreBoardAwardsBAwards.Find(id);
+            ViewData["AwardUser"] = new SelectList(_db.ScoreBoardUsers, "Id", "Name", scoreboardawards.AwardUser);
+            ViewData["AwardPoint"] = new SelectList(_db.ScoreBoardPoints, "Id", "Description",
                 scoreboardawards.AwardPoint);
             return View(scoreboardawards);
         }
@@ -109,24 +109,24 @@ namespace ScoreboardMsSql.Controllers
         {
             if (ModelState.IsValid)
             {
-                db.Entry(scoreboardawards).State = EntityState.Modified;
-                db.SaveChanges();
+                _db.Entry(scoreboardawards).State = EntityState.Modified;
+                _db.SaveChanges();
                 return RedirectToAction("Index");
             }
 
             try
             {
                 ScoreboardUsers realUser =
-                    (from user in db.ScoreBoardUsers where user.Id == scoreboardawards.AwardUser.Id select user).Single();
+                    (from user in _db.ScoreBoardUsers where user.Id == scoreboardawards.AwardUser.Id select user).Single();
                 ScoreboardPoints realPoint =
-                    (from point in db.ScoreBoardPoints where point.Id == scoreboardawards.AwardPoint.Id select point)
+                    (from point in _db.ScoreBoardPoints where point.Id == scoreboardawards.AwardPoint.Id select point)
                         .Single();
 
                 scoreboardawards.AwardUser = realUser;
                 scoreboardawards.AwardPoint = realPoint;
 
-                db.Entry(scoreboardawards).State = EntityState.Modified;
-                db.SaveChanges();
+                _db.Entry(scoreboardawards).State = EntityState.Modified;
+                _db.SaveChanges();
                 return RedirectToAction("Index");
             }
             catch (Exception)
@@ -134,8 +134,8 @@ namespace ScoreboardMsSql.Controllers
                 ViewBag.Error = "Something went seriously wrong!";
             }
 
-            ViewData["AwardUser"] = new SelectList(db.ScoreBoardUsers, "Id", "Name", scoreboardawards.AwardUser);
-            ViewData["AwardPoint"] = new SelectList(db.ScoreBoardPoints, "Id", "Description",
+            ViewData["AwardUser"] = new SelectList(_db.ScoreBoardUsers, "Id", "Name", scoreboardawards.AwardUser);
+            ViewData["AwardPoint"] = new SelectList(_db.ScoreBoardPoints, "Id", "Description",
                 scoreboardawards.AwardPoint);
             return View(scoreboardawards);
         }
@@ -145,7 +145,7 @@ namespace ScoreboardMsSql.Controllers
 
         public ActionResult Delete(int id)
         {
-            ScoreboardAwards scoreboardawards = db.ScoreBoardAwardsBAwards.Find(id);
+            ScoreboardAwards scoreboardawards = _db.ScoreBoardAwardsBAwards.Find(id);
             return View(scoreboardawards);
         }
 
@@ -155,15 +155,15 @@ namespace ScoreboardMsSql.Controllers
         [HttpPost, ActionName("Delete")]
         public ActionResult DeleteConfirmed(int id)
         {
-            ScoreboardAwards scoreboardawards = db.ScoreBoardAwardsBAwards.Find(id);
-            db.ScoreBoardAwardsBAwards.Remove(scoreboardawards);
-            db.SaveChanges();
+            ScoreboardAwards scoreboardawards = _db.ScoreBoardAwardsBAwards.Find(id);
+            _db.ScoreBoardAwardsBAwards.Remove(scoreboardawards);
+            _db.SaveChanges();
             return RedirectToAction("Index");
         }
 
         protected override void Dispose(bool disposing)
         {
-            db.Dispose();
+            _db.Dispose();
             base.Dispose(disposing);
         }
     }

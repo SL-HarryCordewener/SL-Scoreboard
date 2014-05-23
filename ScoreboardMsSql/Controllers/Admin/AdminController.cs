@@ -1,6 +1,6 @@
 ﻿using System.Web.Mvc;
 
-namespace ScoreboardMsSql.Controllers
+namespace ScoreboardMsSql.Controllers.Admin
 {
     /// <summary>
     ///     This could just as easily be a page in the /Home directory.

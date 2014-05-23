@@ -3,7 +3,7 @@ using System.Linq;
 using System.Web.Mvc;
 using ScoreboardMsSql.Models.Scoreboard;
 
-namespace ScoreboardMsSql.Controllers
+namespace ScoreboardMsSql.Controllers.Admin
 {
     public class PointsController : Controller
     {

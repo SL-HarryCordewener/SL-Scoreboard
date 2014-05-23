@@ -67,11 +67,11 @@
     <Reference Include="System.DirectoryServices" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Controllers\AdminController.cs" />
-    <Compile Include="Controllers\AwardsController.cs" />
-    <Compile Include="Controllers\PointsController.cs" />
+    <Compile Include="Controllers\Admin\AdminController.cs" />
+    <Compile Include="Controllers\Admin\AwardsController.cs" />
+    <Compile Include="Controllers\Admin\PointsController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
-    <Compile Include="Controllers\UsersController.cs" />
+    <Compile Include="Controllers\Admin\UsersController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
