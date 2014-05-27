@@ -26,7 +26,8 @@ namespace ScoreboardMsSql.Controllers
         public ActionResult Index()
         {
             // var scoreboardawardsbawards = db.ScoreBoardAwardsBAwards.Include(award => award.AwardPoint).Include(award => award.AwardUser);
-            IQueryable<ResultItems> scoreboardawardsbawards = from awards in _db.ScoreBoardAwardsBAwards
+            IQueryable<ResultItems> scoreboardawardsbawards =
+                from awards in _db.ScoreBoardAwardsBAwards
                 where (awards.AwardTime.Year == DateTime.Now.Year && awards.AwardTime.Month == DateTime.Now.Month)
                 group awards by new {awards.AwardUser.Id, awards.AwardUser.Name, awards.AwardPoint.Points}
                 into rez
@@ -42,7 +43,7 @@ namespace ScoreboardMsSql.Controllers
                     Total = rez.Sum(awards => awards.AwardPoint.Points)
                 };
 
-            int thisYearsTotalPoints = (from awards in _db.ScoreBoardAwardsBAwards
+            var thisYearsTotalPoints = (from awards in _db.ScoreBoardAwardsBAwards
                 where (awards.AwardTime.Year == DateTime.Now.Year && awards.AwardTime.Month == DateTime.Now.Month)
                 select awards.AwardPoint).Count();
 
@@ -59,12 +60,11 @@ namespace ScoreboardMsSql.Controllers
 
         public class ResultItems
         {
+            public int Pos;
+            public string Name;
             public int High;
             public int Low;
             public int Mid;
-            public string Name;
-
-            public int Pos;
             public int Total;
         }
     }
