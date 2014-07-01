@@ -1,11 +1,8 @@
 namespace ScoreboardMsSql.Migrations
 {
-    using System;
-    using System.Data.Entity;
     using System.Data.Entity.Migrations;
-    using System.Linq;
 
-    internal sealed class Configuration : DbMigrationsConfiguration<ScoreboardMsSql.Models.Scoreboard.ScoreboardContext>
+    internal sealed class Configuration : DbMigrationsConfiguration<Models.Scoreboard.ScoreboardContext>
     {
         public Configuration()
         {
@@ -13,7 +10,7 @@ namespace ScoreboardMsSql.Migrations
             AutomaticMigrationDataLossAllowed = true;
         }
 
-        protected override void Seed(ScoreboardMsSql.Models.Scoreboard.ScoreboardContext context)
+        protected override void Seed(Models.Scoreboard.ScoreboardContext context)
         {
             //  This method will be called after migrating to the latest version.
 
